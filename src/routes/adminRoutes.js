@@ -9,6 +9,18 @@ const books = [{
   read: false
 },
 {
+  author: 'Lev Nikolayevich Tolstoy',
+  title: 'War and Peace',
+  bookId: 656,
+  read: false
+},
+{
+  author: 'Victor Hugo',
+  title: 'Les Miserables',
+  bookId: 24280,
+  read: false
+},
+{
   author: 'Hans Christian Andersene',
   title: 'Fairy talese',
   read: false
