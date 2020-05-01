@@ -1,69 +1,21 @@
 const express = require('express');
-const { MongoClient, ObjectID } = require('mongodb');
-const debug = require('debug')('app:adminRoutes');
+// const { MongoClient, ObjectID } = require('mongodb');
+// const debug = require('debug')('app:adminRoutes');
+const bookController = require('../controllers/bookController');
 
 const bookRouter = express.Router();
+
 function router(nav) {
+  const { getIndex, getByID } = bookController(nav);
   bookRouter.use((req, res, next) => {
-    if (req.user) {
-      next();
-    } else {
-      res.redirect('/');
-    }
+    // if (req.user) {
+    next();
+    // } else {
+    //   res.redirect('/');
+    // }
   });
-  bookRouter.route('/').get((req, res) => {
-    const url = 'mongodb://localhost:27017';
-    const dbName = 'libraryApp';
-
-    (async function mongo() {
-      let client;
-      try {
-        client = await MongoClient.connect(url);
-        debug('connected');
-        const db = client.db(dbName);
-        const col = await db.collection('books');
-        const books = await col.find().toArray();
-        res.render('booksListView',
-          {
-            title: 'Library',
-            nav,
-            books
-          });
-      } catch (err) {
-        debug(err.stack);
-      }
-
-      client.close();
-    }());
-  });
-
-
-  bookRouter.route('/:id')
-    .get((req, res) => {
-      const { id } = req.params;
-      const url = 'mongodb://localhost:27017';
-      const dbName = 'libraryApp';
-      (async function mongo() {
-
-        let client;
-        try {
-          client = await MongoClient.connect(url);
-          debug('connected');
-          const db = client.db(dbName);
-          const col = await db.collection('books');
-          const book = await col.findOne({ _id: new ObjectID(id) });
-          debug(book);
-          res.render('bookView',
-            {
-              title: 'Library',
-              nav,
-              book
-            });
-        } catch (err) {
-          debug(err.stack());
-        }
-      }());
-    });
+  bookRouter.route('/').get(getIndex);
+  bookRouter.route('/:id').get(getByID);
   return bookRouter;
 }
 
