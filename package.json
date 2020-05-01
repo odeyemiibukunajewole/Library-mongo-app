@@ -12,7 +12,7 @@
   "author": "wole",
   "license": "ISC",
   "dependencies": {
-    "acorn": "^6.0.0",
+    "acorn": "^6.4.1",
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
     "bootstrap": "^3.2.0",
