@@ -39,9 +39,9 @@ app.get('/', (req, res) => {
     {
       title: 'Library',
       nav: [{ link: '/books', title: 'Books' },
-      {
-        link: 'author', title: 'Author'
-      }]
+        {
+          link: 'author', title: 'Author'
+        }]
     });
 
   // res.sendFile(path.join(__dirname, '/views/', '/index.html'));
